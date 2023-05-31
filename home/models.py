@@ -11,6 +11,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def get_all_categories():
+        return Category.objects.all()
+
     class Meta:
         verbose_name = 'پروفایل'
 
@@ -23,11 +28,20 @@ class Castomer(models.Model):
     phone = models.CharField(max_length=11)
     password = models.CharField(max_length=60)
 
+    def register(self):
+        self.save()
+
+    @staticmethod
     def enter_customer_by_email(getemail):
         try:
             return Castomer.objects.get(email=getemail)
         except:
             return False
+
+    def isExists(self):
+        if Castomer.objects.filter(email=self.email):
+            return True
+        return False
 
 
 
@@ -49,19 +63,22 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    @staticmethod
     def products_by_id(id):
         return Product.objects.filter(category_id=id)
 
+    @staticmethod
     def all_products(self):
         return Product.objects.all()
 
-    def products_by_categoryid(category_id):
+    @staticmethod
+    def all_products_by_categoryid(category_id):
         if category_id:
             return Product.objects.filter(category=category_id)
         else:
             return Product.all_products()
 
-    def show_total_price(self):              #we have this function to discount products.
+    def show_total_price(self):         #we have this function to discount products.
         if not self.discount:           #If there is a discount, calculate it and show the result in the total_price
             return self.unit_price
         elif self.discount:
@@ -83,5 +100,7 @@ class Order(models.Model):
     def placeOrder(self):
         self.save()
 
-
+    @staticmethod
+    def get_orders_by_customer(customer_id):
+        return Order.objects.filter(customer=customer_id).order_by('-date')
 
