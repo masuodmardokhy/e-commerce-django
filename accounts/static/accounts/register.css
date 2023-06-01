@@ -1,0 +1,37 @@
+form input{
+    color:#1C160E;
+    border-style: double;
+}
+
+
+    form{
+        background-color:rgb(210, 210, 210);
+        margin:0px 480px;
+        padding:20px;
+        text-align: center;
+        border-style: double;
+        border-radius: 25px;
+
+    }
+
+
+form label{
+    display:none;
+}
+form input{
+    text-align: center
+}
+form button{
+    width:150px;
+    height:30px;
+    margin-top:20px;
+}
+form button:hover{
+    background:#F5AC49
+}
+
+h2{
+    margin:0px 480px;
+    padding:25px 8px;
+    text-align: center;
+}

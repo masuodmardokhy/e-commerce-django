@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+{% load static%}
+{%block title%} login {%endblock title%}
+{% block css%}
+<link rel="stylesheet" href="{% static 'accounts/login.css' %}">
+{%endblock css%}
+{%block body%}
+<h2>login user</h2>
+<br>
+
+<form method="post" style="size:50%">
+    {%csrf_token%}
+    {{ user.as_p }}
+    <button type="submit">login</button>
+
+</form>
+{%endblock body%}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} change_password {% endblock title %}
+{% block body %}
+<h2> change password page </h2>
+<form action="" method="post" style="width:40% ;margin:5px ">
+    <div class="border border-success p-2 mb-2; p-3 mb-2 bg-light-subtle text-emphasis-light">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit">change</button>
+    </div>
+</form>
+{% endblock body%}

@@ -32,7 +32,7 @@ class home(View):            # for Manage the user's shopping cart information
 
 
 
-def store(request):
+def store(request):           #this function is for show the store
     cart = request.session.get('cart')
     if not cart:
         request.session['cart'] = {}
@@ -46,15 +46,16 @@ def store(request):
     data = {}
     data['product'] = products
     data['categories'] = categories
-
+    #
     print('you are ',request.session.get('email'))
     return render(request, 'home/home.html', data)
 
 
 
-class login(View):
-    return_url = None
-    def get(self, request):
-        login.return_url = request.GET.get('return_url')
-        return render(request, 'home/login.html')
+# class login(View):
+#     return_url = None
+#     def get(self, request):
+#         login.return_url = request.GET.get('return_url')
+#         return render(request, 'home/login.html')
+#
 

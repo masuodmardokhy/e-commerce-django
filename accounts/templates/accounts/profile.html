@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block title %} profile {% endblock title%}
+
+{% block css%}
+    <link rel="stylesheet" href="{% static 'accounts/profile.css'%}">
+{% endblock css%}
+
+{% block body%}
+<h2>profile page </h2>
+<table class="table table-striped " style="width:auto " border="5px">
+    <tr>
+        <th>user: {{ profile.user.username }}</th>
+    </tr>
+    <tr>
+        <th>first_name: {{ profile.user.first_name }}</th>
+    </tr>
+    <tr>
+        <th>last_name: {{ profile.user.last_name }}</th>
+    </tr>
+    <tr>
+        <th>email: {{ profile.user.email }}</th>
+    </tr>
+    <tr>
+        <th>phone: 0{{ profile.phone }}</th>
+    </tr>
+    <tr>
+        <th>address: {{ profile.address }}</th>
+    </tr>
+    <br>
+</table>
+<p align="center" style="text-align: center;">
+    <a href="{% url 'accounts:update' %}" style="margin:0px auto;">update</a>&nbsp;&nbsp;
+    <a href="{% url 'accounts:change_password' %}"> changepassword</a>
+</p>
+
+{% endblock body%}

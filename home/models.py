@@ -1,5 +1,5 @@
 from django.db import models
-from  django.utils.timezone import datetime
+from django.utils.timezone import datetime
 
 
 class Category(models.Model):
@@ -53,7 +53,6 @@ class Product(models.Model):
     unit_price = models.PositiveIntegerField()
     discount = models.PositiveIntegerField(blank=True, null=True)
     total_price = models.PositiveIntegerField()
-    information = models.TextField(blank=True, null=True)
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     available = models.BooleanField(default=True)
@@ -87,6 +86,7 @@ class Product(models.Model):
         return self.total_price
 
 
+
 class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     customer = models.ForeignKey(Castomer, on_delete=models.CASCADE)
@@ -94,7 +94,7 @@ class Order(models.Model):
     price = models.PositiveIntegerField()
     address = models.CharField(max_length=50, blank=True)
     phone = models.CharField(max_length=50, blank=True)
-    date = models.DateField(default=datetime.datetime.today)
+    date = models.DateField(default=datetime.today)
     status = models.BooleanField(default=False)
 
     def placeOrder(self):

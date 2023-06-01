@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+{%block title  %}update profile{% endblock title%}
+{% block body%}
+<h2>page profile update</h2>
+<form action="" method="post" style="background-color:#f8f8f8 ;padding:10px; margin:5px; width:35% " >
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+
+    <button type="submit">update</button>
+</form>
+{%endblock body%}

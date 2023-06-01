@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg bg-body-secondary " style="margin:10px ">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home:home'%}">Home</a>
+                </li>
+                {% if user.is_authenticated%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:logout'%}">logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:profile'%}">profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:product'%}">product</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:register'%}">register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:product'%}">product </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account:login'%}">login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
