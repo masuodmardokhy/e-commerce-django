@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%} accounts home {%endblock title%}
+{% block css%}
+    <link rel="stylesheet" href="{% static 'accounts/accounts_home.css' %}">
+{%endblock css%}
+{%block body%}
+    <br>
+<h1 style="text-align: center"> You have successfully login </h1>
+    <hr>
+<br>
+    <form>
+    <h4>
+        You can logout <br><br>
+        You can see your profile <br><br>
+        You can change and update your profile <br><br>
+        You can change your password <br><br>
+    </h4>
+</form>
+    <br>
+
+
+    <form method="link" action="{% url 'accounts:logout' %}">
+        <h4>
+       Log out to see the home page <br>
+        <hr>
+        </h4>
+        <input type="submit" value="EXIT" style="height:50px; width:150px" /><br>
+    <br>
+</form>
+
+
+{%endblock body%}

@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
+#from rest_framework.response import Response
 from .models import *
 from django.views import View
+from django.shortcuts import render, get_object_or_404
+
 
 # Create your views here.
 class home(View):            # for Manage the user's shopping cart information
@@ -25,7 +28,7 @@ class home(View):            # for Manage the user's shopping cart information
             cart[product] = 1
         request.session['cart'] = cart
         print('cart', request.session['cart'])
-        return redirect('homepage')
+        return redirect('home:home')
 
     def get(self,request):
         return HttpResponseRedirect(request,'')
@@ -46,16 +49,9 @@ def store(request):           #this function is for show the store
     data = {}
     data['product'] = products
     data['categories'] = categories
-    #
     print('you are ',request.session.get('email'))
     return render(request, 'home/home.html', data)
 
 
 
-# class login(View):
-#     return_url = None
-#     def get(self, request):
-#         login.return_url = request.GET.get('return_url')
-#         return render(request, 'home/login.html')
-#
 

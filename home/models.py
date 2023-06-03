@@ -16,9 +16,8 @@ class Category(models.Model):
     def get_all_categories():
         return Category.objects.all()
 
-    class Meta:
-        verbose_name = 'پروفایل'
-
+    # class Meta:       #change name to persian
+    #     verbose_name = 'پروفایل'
 
 
 class Castomer(models.Model):

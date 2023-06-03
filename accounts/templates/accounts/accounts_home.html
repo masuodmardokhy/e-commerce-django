@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%} accounts home {%endblock title%}
+{% block css%}
+    <link rel="stylesheet" href="{% static 'accounts/accounts_home.css' %}">
+{%endblock css%}
+{%block body%}
+    <br>
+<h1 style="text-align: center"> this is accounts home page </h1>
+    <hr>
+<br>
+    <form >
+    <h4>
+        You can <b>login</b> through the menu above.<br><br>
+        and create an account through the <b> register </b> option<br><br>
+        And then you can view your <b>profile</b> or <b>log out</b>
+    </h4>
+</form>
+{%endblock body%}

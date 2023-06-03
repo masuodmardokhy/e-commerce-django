@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponse
 from .forms import *
 from .models import *
 from django.contrib.auth.models import User
@@ -9,6 +10,14 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
 
+
+def accounts_home(request):
+    return render(request,'accounts/accounts_home.html')
+
+def accounts_home_login(request):
+    return render(request,'accounts/accounts_home_login.html')
+
+
 def user_register(request):
     if request.method == 'POST':
         form = UserRegisterFrom(request.POST)
@@ -17,7 +26,8 @@ def user_register(request):
             User.objects.create_user(username=data['user_name'],first_name=data['first_name'],
                                      email=data['email'],last_name=data['last_name'],
                                      password=data['password_2'])
-            return redirect('home:home')
+            messages.success(request, 'Your account has been successfully created. Please login', 'primary')
+            return redirect('accounts:accounts_home')
 
     else:
         form = UserRegisterFrom()
@@ -36,7 +46,7 @@ def user_login(request):
             if user1 is not None:
                 login(request, user1)
                 messages.success(request,'login success','primary')
-                return redirect("home:home")
+                return redirect("accounts:accounts_home_login")
             else:
                 messages.error(request,'pass or user is incorrect','danger')
 
@@ -48,7 +58,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     messages.success(request,'logout success','success')
-    return redirect("home:home")
+    return redirect("accounts:accounts_home")
 
 
 

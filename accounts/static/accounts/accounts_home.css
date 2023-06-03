@@ -1,0 +1,16 @@
+
+    form{
+        background-color:rgb(210, 210, 210);
+        margin:0px 350px;
+        padding:0px;
+        text-align: center;
+        border-style: double;
+        border-radius: 25px;
+
+    }
+
+h4{
+    margin:0px 50px;
+    padding:25px 20px;
+    text-align: center;
+}
