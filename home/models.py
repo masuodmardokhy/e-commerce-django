@@ -20,7 +20,7 @@ class Category(models.Model):
     #     verbose_name = 'پروفایل'
 
 
-class Castomer(models.Model):
+class Customer(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=40)
     email = models.EmailField()
@@ -31,14 +31,14 @@ class Castomer(models.Model):
         self.save()
 
     @staticmethod
-    def enter_customer_by_email(getemail):
+    def customer_by_email(getemail):
         try:
-            return Castomer.objects.get(email=getemail)
+            return Customer.objects.get(email=getemail)
         except:
             return False
 
     def isExists(self):
-        if Castomer.objects.filter(email=self.email):
+        if Customer.objects.filter(email=self.email):
             return True
         return False
 
@@ -88,7 +88,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Castomer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     price = models.PositiveIntegerField()
     address = models.CharField(max_length=50, blank=True)
