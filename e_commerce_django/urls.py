@@ -20,6 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls')),
+    path('API/', include('API.urls')),
+
+
     path('admin/', admin.site.urls),
     path('', include('home.urls', namespace='home')),    #for include home urls
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  #for static file and media
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  #for static file and media

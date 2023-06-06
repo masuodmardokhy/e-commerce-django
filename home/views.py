@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
-class home(View):            # for Manage the user's shopping cart information
+class Home(View):            # for Manage the user's shopping cart information
     def post(self, request):
         product = request.POST.get('product')
         remove = request.POST.get('remove')
@@ -32,10 +32,11 @@ class home(View):            # for Manage the user's shopping cart information
         print('cart', request.session['cart'])
         return redirect('home:home')
 
-    def get(self,request):
+    def get(self, request):
         #return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
-        return HttpResponseRedirect(request,'')
-
+        print('aaa')
+        #return HttpResponseRedirect(request,'home',)
+        return render(request, 'home/home.html')
 
 
 def store(request):           #this function is for show the store
@@ -59,7 +60,7 @@ def store(request):           #this function is for show the store
 
 def logout(request):
     request.session.clear()
-    return redirect('')
+    return redirect('home:login')
 
 
 
@@ -86,19 +87,19 @@ class Login(View):
             error_messages = 'error'
         context = {'error': error_messages}
         print(email, password)
-        return render(request, '', context)
+        return render(request, 'home/login.html', context)
 
 
     def get(self, request):
         Login.return_url = request.GET.get('return_url')
-        return render(request, '')
+        return render(request, 'home/login.html')
 
 
 
 class Register(View):
 
     def get(self, request):
-        return render(request, '')
+        return render(request, 'home/register.html')
 
     def post(self, request):
         first_name = request.POST.get('firstname')
@@ -118,5 +119,67 @@ class Register(View):
 
         customer = Customer(first_name= first_name, last_name= last_name,
                             phone= phone, email= email, password= password)
+        error = self.validatecustomer(customer)
+        if not error:
+            print(first_name, last_name, phone, email, password)
+            customer.password = make_password(customer.password)
+            customer.register()
+            return redirect('home:home')
+        else:
+            data = {'error': error}
+            data1 = {'value': value}
+            return render(request, 'home/register.html', data, data1)
+
+    def validatecustomer(self, custo):
+        error = None
+        if (not custo.first_name):
+            error = "please enter first name"
+        elif len(custo.first_name) <= 2:
+            error = "first name must be 2 char long or more"
+        elif not custo.last_name or len(custo.last_name) < 2:
+            error = "please enter valid last name"
+        elif not custo.phone or len(custo.phone) < 10 :
+            error = "please enter valid phone "
+        elif len(custo.password) < 6 :
+            error = "pass must be 5 char long"
+        elif len(custo.email) < 6 :
+            error = "please enter valid email"
+        elif custo.email.isExists():
+            error = "email already register"
+        return error
 
 
+class CheckOut(View):
+    def post(self, request):
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+        customer = request.session.get('customer')      #we can useing pop for delete data in session
+        cart = request.session.get('cart')
+        products = Product.products_by_id(list(cart.keys()))
+        print(address, phone, customer, cart, products)
+
+        for product in products:    #Using for, a new order is created for each product
+            print(cart.get(str(product.id)))
+            order = Order(customer=Customer(id=customer), product=product, price= product.price,
+                          address=address, phone= phone, quantity= cart.get(str(product.id)))
+            order.save()
+
+        request.session['cart'] = {}     #After ordering, the shopping cart will be empty
+        return redirect('cart')
+
+
+class OrderView(View):
+    def get(self,request):
+        customer = request.session.get('customer')
+        orders = Order.get_orders_by_customer(customer)
+        print(orders)
+        return render(request, 'home/order.html', {'orders':orders})
+
+
+
+class Cart(View):
+    def get(self, request):
+        ids = list(request.session.get('cart').keys())
+        product = Product.products_by_id(ids)
+        print(product)
+        return render(request, 'home/cart.html', {'product':product })

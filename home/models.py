@@ -56,7 +56,7 @@ class Product(models.Model):
     update = models.DateTimeField(auto_now=True)
     available = models.BooleanField(default=True)
     description = models.CharField(max_length=300, blank=True, null=True)
-    image = models.ImageField(upload_to='')
+    image = models.ImageField(upload_to='media')
 
     def __str__(self):
         return self.name

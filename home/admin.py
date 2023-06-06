@@ -13,10 +13,10 @@ admin.site.register(Category, CategoryAdmin )
 
 
 
-class CastomerAdmin(admin.ModelAdmin):
+class CustomerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone', 'password',)
     list_filter = ('first_name', 'last_name')
-admin.site.register(Castomer, CastomerAdmin),
+admin.site.register(Customer, CustomerAdmin),
 
 
 
